@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useReducer } from 'react';
+import { styled } from '@stitches/react';
+import Grid from './components/Grid';
+import { WordleContext } from './context/wordleContext';
+
+const Container = styled('div', {
+  height: '100vh',
+  width: '100vw',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const wordReducer = (state: string, action: string) => {
+  return '';
+};
 
 function App() {
+  const [word, setWord] = useReducer(wordReducer, '');
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => setWord(event.key);
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <WordleContext.Provider value={{ word }}>
+      <Container>
+        <Grid />
+      </Container>
+    </WordleContext.Provider>
   );
 }
 
