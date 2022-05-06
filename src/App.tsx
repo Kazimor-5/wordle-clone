@@ -12,12 +12,18 @@ const Container = styled('div', {
   justifyContent: 'center',
 });
 
-const wordReducer = (state: string, action: string) => {
-  return '';
+const wordReducer = (prevWord: string, key: string) => {
+  if (key === 'Backspace') {
+    return prevWord.slice(0, -1);
+  }
+
+  return `${prevWord}${key}`;
 };
 
+const initialWord = '';
+
 function App() {
-  const [word, setWord] = useReducer(wordReducer, '');
+  const [word, setWord] = useReducer(wordReducer, initialWord);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => setWord(event.key);
