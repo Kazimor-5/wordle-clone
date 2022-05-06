@@ -17,7 +17,14 @@ const wordReducer = (prevWord: string, key: string) => {
     return prevWord.slice(0, -1);
   }
 
-  return `${prevWord}${key}`;
+  const newWord = `${prevWord}${key}`;
+  const isWordLengthOK = newWord.length < 6;
+
+  if (isWordLengthOK) {
+    return newWord;
+  }
+
+  return prevWord;
 };
 
 const initialWord = '';
