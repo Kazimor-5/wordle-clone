@@ -1,6 +1,8 @@
+// ! COMPONENTS
+import Row from './Row';
+// ! FILES
 import React from 'react';
 import { styled } from '@stitches/react';
-import Row from './Row';
 
 const StyledGrid = styled('div', {
   width: '350px',

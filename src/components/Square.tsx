@@ -1,10 +1,12 @@
+// ! COMPONENTS
+import Letter from './Letter';
+// ! FILES
 import { styled } from '@stitches/react';
 import React from 'react';
 import { bounce } from '../styles/animations';
-import Letter from './Letter';
 
 interface ISquare {
-  word: string;
+  letter: string;
 }
 
 const StyledSquare = styled('div', {
@@ -26,8 +28,8 @@ const StyledSquare = styled('div', {
 
 const Square = (props: ISquare) => {
   return (
-    <StyledSquare isActive={!!props.word}>
-      <Letter word={props.word} />
+    <StyledSquare isActive={!!props.letter}>
+      <Letter letter={props.letter} />
     </StyledSquare>
   );
 };

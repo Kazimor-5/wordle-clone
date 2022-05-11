@@ -1,7 +1,11 @@
+// ! COMPONENTS
+import Grid from './components/Grid';
+// ! FILES
 import { useEffect, useReducer } from 'react';
 import { styled } from '@stitches/react';
-import Grid from './components/Grid';
-import { WordleContext } from './context/wordleContext';
+import { WordleContext, initialState } from './context/wordleContext';
+import { wordReducer } from './handlers/wordReducer';
+import AlertBox from './components/AlertBox';
 
 const Container = styled('div', {
   height: '100vh',
@@ -11,21 +15,6 @@ const Container = styled('div', {
   alignItems: 'center',
   justifyContent: 'center',
 });
-
-const wordReducer = (prevWord: string, key: string) => {
-  if (key === 'Backspace') {
-    return prevWord.slice(0, -1);
-  }
-
-  const newWord = `${prevWord}${key}`;
-  const isWordLengthOK = newWord.length < 6;
-
-  if (isWordLengthOK) {
-    return newWord;
-  }
-
-  return prevWord;
-};
 
 const initialWord = '';
 
@@ -41,9 +30,10 @@ function App() {
   }, []);
 
   return (
-    <WordleContext.Provider value={{ word }}>
+    <WordleContext.Provider value={{ ...initialState, word }}>
       <Container>
         <Grid />
+        <AlertBox />
       </Container>
     </WordleContext.Provider>
   );

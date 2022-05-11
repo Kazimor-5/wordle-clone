@@ -1,7 +1,9 @@
+// ! COMPONENTS
+import Square from './Square';
+// ! FILES
 import { styled } from '@stitches/react';
 import { useContext } from 'react';
 import { WordleContext } from '../context/wordleContext';
-import Square from './Square';
 
 interface IRow {
   isActive: boolean;
@@ -14,9 +16,9 @@ const StyledRow = styled('div', {
 });
 
 const Row = (props: IRow) => {
-  const { word } = useContext(WordleContext);
+  const { word, secretWord } = useContext(WordleContext);
 
-  const getWord = (index: number) => {
+  const getLetter = (index: number) => {
     if (props.isActive) {
       return word[index];
     }
@@ -25,9 +27,11 @@ const Row = (props: IRow) => {
 
   return (
     <StyledRow>
-      {Array.from(Array(5).keys()).map((square, index) => (
-        <Square word={getWord(index)} />
-      ))}
+      {Array.from(Array(secretWord.length).keys()).map(
+        (square, letterPosition) => (
+          <Square letter={getLetter(letterPosition)} />
+        )
+      )}
     </StyledRow>
   );
 };
